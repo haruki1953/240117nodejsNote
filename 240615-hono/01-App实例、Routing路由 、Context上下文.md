@@ -37,7 +37,7 @@ serve({
 
 和express还是类似的，很好理解
 
-## App
+## App实例
 https://hono.dev/api/hono
 
 一个 `Hono` 实例有以下方法
@@ -101,7 +101,7 @@ const app = new Hono({ strict: false })
 ```
 
 
-## 路由
+## Routing路由
 https://hono.dev/api/routing
 ```ts
 // HTTP Methods
@@ -210,7 +210,7 @@ app.get('/www2.example.com/hello', (c) => c.text('hello www2'))
 处理程序或中间件将按注册顺序执行。
 
 
-## Context
+## Context上下文
 路由处理函数中的 c 即为 Context
 ### req
 ```ts
