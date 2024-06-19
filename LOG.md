@@ -18,3 +18,6 @@ Prisma快速开始，Prisma + SQLite
 
 ### 240618Prisma
 PrismaORM工作原理及流程
+
+### 240619Prisma
+PrismaSchema架构、Relations关系
