@@ -21,3 +21,7 @@ PrismaORM工作原理及流程
 
 ### 240619Prisma
 PrismaSchema架构、Relations关系
+
+### 240620Prisma、hono
+- PrismaClient客户端
+- hono、尝试整理项目规范
