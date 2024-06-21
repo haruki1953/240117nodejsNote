@@ -25,3 +25,6 @@ PrismaSchema架构、Relations关系
 ### 240620Prisma、hono
 - PrismaClient客户端
 - hono、尝试整理项目规范
+
+### 240621hono
+尝试自己规范了在接口与服务中的错误处理
