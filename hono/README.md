@@ -7,15 +7,15 @@ https://hono.dev/
 - [x] 路由
 - [x] 中间件
 - [x] 接口编写
-	- [ ] 接口中的错误处理
+	- [x] 接口中的错误处理
 	- [ ] 上传文件
 - [x] 跨域CORS
 - [x] 表单校验
 	- [x] 使用 Zod 进行验证 https://hono.dev/guides/validation
-- [ ] 数据库操作 ORM框架Prisma
+- [x] 数据库操作 ORM框架Prisma
 	- [ ] 数据库备份最佳实践
 - [x] 身份认证
-- [ ] 项目结构
+- [x] 项目结构
 - [ ] 日志
 	- [ ] logger中间件
 - [ ] 其他，进阶
