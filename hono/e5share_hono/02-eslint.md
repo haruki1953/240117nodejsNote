@@ -1,4 +1,4 @@
-（不知道是否需要）
+（不是非常需要，下面初始化 ESLint 配置文件时会自动安装）
 ```bash
 pnpm add eslint@8.57.0 --save-dev
 ```
@@ -58,4 +58,17 @@ Standard好像是之前学vue时提到过的
 eslint-config-standard-with-typescript@latest @typescript-eslint/eslint-plugin@^6.4.0 eslint@^8.0.1 eslint-plugin-import@^2.25.2 eslint-plugin-n@^15.0.0 || ^16.0.0  eslint-plugin-promise@^6.0.0 typescript@*
 ? Would you like to install them now? » No / Yes
 安装依赖
+```
+
+
+注意：VSCode ESLint 插件的版本是 2.4.4
+> 昨天（240622）电脑上所有项目的eslint都失效了，现在破案了，是插件的版本问题，回退到2.4.4就好了
+> ![](assets/89665243c88af3c0aad37ee781c9e33.png)
+> ![](assets/1770af9808f4164e63ace4224be555f.png)
+
+打开 VSCode 设置（`Ctrl + ，`或者菜单栏中选择“文件” > “首选项” > “设置”），在设置中添加以下配置以启用在保存时自动修复错误的功能：
+```json
+"editor.codeActionsOnSave": {
+	"source.fixAll": true
+}
 ```

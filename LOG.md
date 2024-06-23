@@ -28,3 +28,6 @@ PrismaSchema架构、Relations关系
 
 ### 240621hono
 尝试自己规范了在接口与服务中的错误处理
+
+### 240623hono
+解决了eslint的问题，是vscode插件的版本问题，回退到2.4.4就好了

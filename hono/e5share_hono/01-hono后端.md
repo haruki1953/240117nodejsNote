@@ -7,6 +7,10 @@ pnpm create hono@latest e5share-hono
 ```
 选择node.js
 
+### eslint
+[02-eslint](02-eslint.md)
+
+
 ### 规范项目结构
 在src目录中新建文件夹：
 - routers
@@ -36,8 +40,6 @@ const port = Number(process.env.E5SHARE_HONO_PORT || 50504);
 }
 
 ```
-
-### eslint
 
 
 
