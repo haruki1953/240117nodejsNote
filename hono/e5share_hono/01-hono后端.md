@@ -162,6 +162,7 @@ app.use(cors())
 
 ### 错误处理
 [04-最佳实践、项目规范【接口与服务中的错误处理】](../04-最佳实践、项目规范.md#接口与服务中的错误处理)
+[04-最佳实践、项目规范【全局错误处理】](../04-最佳实践、项目规范.md#全局错误处理)
 
 ```ts
 app.notFound((c) => {
@@ -220,6 +221,7 @@ zValidator('json', authRegisterJson, (result, c) => {
 type zValPar = Parameters<typeof zValidator>
 
 // zValidator With Error Handler
+// 【不完善】这样的话使用时 c.req.valid 没有提示
 export const zValWEH = (target: zValPar[0], schema: zValPar[1]): ReturnType<typeof zValidator> => {
   return zValidator(target, schema, (result, c) => {
     if (!result.success) {
@@ -227,6 +229,14 @@ export const zValWEH = (target: zValPar[0], schema: zValPar[1]): ReturnType<type
     }
   })
 }
+// 【改进】直接使用类型断言，挺好的 简洁了很多
+export const zValWEH = ((target, schema) => {
+  return zValidator(target, schema, (result, c) => {
+    if (!result.success) {
+      throw new AppError(result.error.issues[0].message, 400)
+    }
+  })
+}) as typeof zValidator
 ```
 
 现在在校验时就调用zValWEH
@@ -238,8 +248,6 @@ router.post('/register', zValWEH('json', authRegisterJson), (c) => {
 
 笔记：[关于复杂的类型标注](笔记/关于复杂的类型标注.md)
 
-## 四、登录注册功能
-新建 routers/auth.ts，在入口文件导入
 
 
 

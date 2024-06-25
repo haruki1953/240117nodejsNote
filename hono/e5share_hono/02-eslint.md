@@ -4,6 +4,7 @@ pnpm add eslint@8.57.0 --save-dev
 ```
 
 
+## 安装
 在项目根目录下执行以下命令，初始化 ESLint 配置文件：
 ```bash
 pnpm create @eslint/config@0.4.6
@@ -61,6 +62,7 @@ eslint-config-standard-with-typescript@latest @typescript-eslint/eslint-plugin@^
 ```
 
 
+## VSCode ESLint 插件
 注意：VSCode ESLint 插件的版本是 2.4.4
 > 昨天（240622）电脑上所有项目的eslint都失效了，现在破案了，是插件的版本问题，回退到2.4.4就好了
 > ![](assets/89665243c88af3c0aad37ee781c9e33.png)
@@ -72,3 +74,21 @@ eslint-config-standard-with-typescript@latest @typescript-eslint/eslint-plugin@^
 	"source.fixAll": true
 }
 ```
+
+## 个人觉得不必要写返回值类型
+1. **找到 ESLint 配置文件**：通常是 `.eslintrc.js`、`.eslintrc.json` 或 `.eslintrc.yaml`，位于项目根目录或者配置文件夹内。
+
+2. **编辑 ESLint 配置文件**：找到配置文件后，修改 `rules` 部分，将 `@typescript-eslint/explicit-function-return-type` 规则设置为 `'off'`。
+
+   ```javascript
+   module.exports = {
+     // 其他配置...
+     rules: {
+       // 其他规则...
+       '@typescript-eslint/explicit-function-return-type': 'off',
+     },
+   };
+   ```
+
+   上述配置中，我们将 `@typescript-eslint/explicit-function-return-type` 规则设置为 `'off'`，表示禁用此规则，从而不再强制要求显式声明函数的返回值类型。
+
