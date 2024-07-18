@@ -249,11 +249,96 @@ router.post('/register', zValWEH('json', authRegisterJson), (c) => {
 笔记：[关于复杂的类型标注](笔记/关于复杂的类型标注.md)
 
 
+## 240718开发中的优化
+本来不打算再写了，但学了websocket后想要有个地方实践，所以又要开始写这个hono后端了。经过了一些时间后，对项目结构的理解有了一些变化，所以现在来优化一下
+- 所有的文件夹尽量都用index.ts来管理导出，这样在在改变文件夹内的结构（扩展）时，会方便很多
+
+### system文件夹
+- db
+- admin（管理相关配置、jwt密钥、配置【还能优化】）
+- file（封装一些关于文件操作的东西）【TODO】
+- log【TODO】
+- ……
+```
+src\system
+新建文件夹 src\system 用于存放系统层面的操作（大概是这个意思），如数据库备份、日志、jwt密钥的生成与保存，系统相关设置（对于后端的状态管理，相比于store，感觉还是放在system中合适）
+
+src\system\db.ts 
+在其中实例化PrismaClient并导出供services中的函数使用，还计划在其中实现数据库备份等操作
+
+【TODO】file，好处在于可以在项目启动时就检查要用的文件夹是否存在
+
+```
+system中的模块尽量保持独立性，不要互相引用
+
+#### 状态管理、jwt生成与保存
+```
+新建 src\system\admin.ts
+模仿组合式api，函数useAdminSystem返回数据与方法
+
+之后即可在services中使用useAdminSystem
+关于改在函数内还是全集调用useAdminSystem，感觉怎样都行，好像在全局调用比较好
 
 
+【错错错，自己刚才犯错误了】
+“还有一个函数 setupAdminSystem 必须在入口文件执行”
+不应该设计在入口文件setupAdminSystem，应该直接在模块内调用
+因为在src\routers\user.ts中使用jwt时必须保证已“setup”
+```
+
+```ts
+
+// src\services\auth.ts
+// 判断是否允许注册
+const adminSystem = useAdminSystem()
+export const authRegisterUserService = async (
+  username: string, password: string, email: string
+) => {
+  // confirm user could register
+  adminSystem.confirmCouldRegister()
+  // ...
+}
 
 
+// src\routers\user.ts
+// 获取jwt密钥
+好像有点问题了
 
+```
+
+### data文件夹
+（位于项目根目录，而不是src目录下）
+- database.sqlite
+- admin.json
+- backups
+- logs
+```
+data
+存放sqlite数据库文件、状态管理json、日志、备份、等运行时产生的数据
+这样在docker打包时，可以将其绑定数据卷
+```
+
+#### 数据库文件迁移至data/database.sqlite
+```
+prisma\schema.prisma
+	datasource db {
+	  provider = "sqlite"
+	  url      = "file:../data/database.sqlite"
+	}
+pnpm exec prisma migrate dev --name 240718DevOptimize
+```
+
+
+### 鲁棒性
+```
+在从json文件等方式获取数据时，为了增加鲁棒性，最好进行校验
+schema可以放在 src\schemas\types.ts 对应 types 文件夹中的类型
+```
+zod 验证 https://zod.dev/?id=basic-usage
+```
+mySchema.parse("tuna"); // => "tuna"
+mySchema.parse(12); // => throws ZodError
+```
 
 
 
