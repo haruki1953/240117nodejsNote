@@ -1,4 +1,39 @@
 ```sh
+curl -X GET \
+  http://127.0.0.1:3007/e5post/posts/1 \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0MSIsImV4cCI6MTczMTcyNzUwN30.cwCk1lwZR6eHu0CY8tKjgdXce97iYaxNjCpROoFgLpE"
+
+curl -X GET \
+  http://127.0.0.1:3007/user/last-login/1 \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0MSIsImV4cCI6MTczMTcyNzUwN30.cwCk1lwZR6eHu0CY8tKjgdXce97iYaxNjCpROoFgLpE"
+
+curl -X PUT \
+  http://127.0.0.1:3007/user/e5info \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0MSIsImV4cCI6MTczMTcyNzUwN30.cwCk1lwZR6eHu0CY8tKjgdXce97iYaxNjCpROoFgLpE" \
+  -H "Content-Type: application/json" \
+  -d '{"subscriptionDate": "2024-02-24", "expirationDate": "2024-05-24"}'
+
+curl -X GET \
+  http://127.0.0.1:3007/user/profile \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0MSIsImV4cCI6MTczMTcyNzUwN30.cwCk1lwZR6eHu0CY8tKjgdXce97iYaxNjCpROoFgLpE'
+
+curl -X PUT \
+  http://127.0.0.1:3007/user/password \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0MSIsImV4cCI6MTczMTcyNzUwN30.cwCk1lwZR6eHu0CY8tKjgdXce97iYaxNjCpROoFgLpE" \
+  -H "Content-Type: application/json" \
+  -d '{"oldPassword": "new_password", "newPassword": "example_password"}'
+
+curl -X PUT \
+  http://127.0.0.1:3007/user/password \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0MSIsImV4cCI6MTczMTcyNzUwN30.cwCk1lwZR6eHu0CY8tKjgdXce97iYaxNjCpROoFgLpE" \
+  -H "Content-Type: application/json" \
+  -d '{"oldPassword": "example_password", "newPassword": "new_password"}'
+
+curl -X PUT \
+  http://127.0.0.1:3007/user/email \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0MSIsImV4cCI6MTczMTcyNzUwN30.cwCk1lwZR6eHu0CY8tKjgdXce97iYaxNjCpROoFgLpE" \
+  -H "Content-Type: application/json" \
+  -d '{"email": "new_email@example.com"}'
 
 curl -X PATCH \
   http://127.0.0.1:3007/user/profile \

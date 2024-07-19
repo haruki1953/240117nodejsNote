@@ -255,9 +255,8 @@ router.post('/register', zValWEH('json', authRegisterJson), (c) => {
 
 ### system文件夹
 - db
-- admin（管理相关配置、jwt密钥、配置【还能优化】）
-- file（封装一些关于文件操作的东西）【TODO】
-- log【TODO】
+- admin（管理相关配置、jwt密钥）
+- file（封装一些关于文件操作的东西）
 - ……
 ```
 src\system
@@ -280,14 +279,13 @@ system中的模块尽量保持独立性，不要互相引用
 关于改在函数内还是全集调用useAdminSystem，感觉怎样都行，好像在全局调用比较好
 
 
-【错错错，自己刚才犯错误了】
+【自己刚才犯错误了】
 “还有一个函数 setupAdminSystem 必须在入口文件执行”
 不应该设计在入口文件setupAdminSystem，应该直接在模块内调用
 因为在src\routers\user.ts中使用jwt时必须保证已“setup”
 ```
 
 ```ts
-
 // src\services\auth.ts
 // 判断是否允许注册
 const adminSystem = useAdminSystem()
@@ -299,19 +297,47 @@ export const authRegisterUserService = async (
   // ...
 }
 
-
 // src\routers\user.ts
 // 获取jwt密钥
-好像有点问题了
-
+const adminSystem = useAdminSystem()
+router.use(jwt({ secret: adminSystem.store.jwtMainSecretKey }))
 ```
+
+#### file文件操作封装
+```ts
+export const useFileAvatarSystem = () => {
+  const processAvatar = async (
+    avatarBuffer: ArrayBuffer
+  ) => {
+    // process and save ...
+    return saveFileName
+  }
+  const delAvatar = async (avatar: string) => {
+    await fs.unlink(path.join(avatarSavePath, avatar)).catch(() => {})
+  }
+  return {
+    processAvatar,
+    delAvatar
+  }
+}
+
+const avatarSavePath = avatarConfig.savePath
+
+const setup = () => {
+  confirmSaveFolderExists(avatarSavePath)
+}
+setup()
+```
+更改了头像存放位置：从 `upload/avatar` 更改为  `data/public/avatar`
+
+#### 数据库备份
+【TODO】现在先不弄吧，回头再好好参考别人的设计一下
 
 ### data文件夹
 （位于项目根目录，而不是src目录下）
 - database.sqlite
 - admin.json
 - backups
-- logs
 ```
 data
 存放sqlite数据库文件、状态管理json、日志、备份、等运行时产生的数据
@@ -340,7 +366,7 @@ mySchema.parse("tuna"); // => "tuna"
 mySchema.parse(12); // => throws ZodError
 ```
 
-
+好了，现在再开始写接口吧
 
 
 
